@@ -2,21 +2,54 @@
     ViewData["Title"] = "Home Page";
 }
 <script src="/lib/jquery/dist/jquery.min.js"></script>
-<input id="input-angka" type="text"/>    
+<input id="input-angka" type="number"/>    
 <br/>
 <br/>
 <button id="segitiga">Generate segitiga</button>
 <button id="ganjil">Generate Bilangan Ganjil</button>
 <button id="prima">Generate Bilangan Prima</button>
+<br/>
+<br/>
+<h1>Result:</h1>
+<div id="result"></div>
 <script>
+    var baseUrl = 'http://localhost:5287/'
+
     $('#segitiga').click(() => {
-        alert('test1')
+        var inputAngka = $('#input-angka').val()
+        $.ajax({
+            type: "GET",
+            url: baseUrl + "Home/Segitiga?inputAngka=" + inputAngka,
+            success: function(data) {
+                $('#result').append('<h6>' + data + '</h6>')
+            }
+        })
     })
+
     $('#ganjil').click(() => {
-        alert('test2')
+        var inputAngka = $('#input-angka').val()
+        $.ajax({
+            type: "GET",
+            url: baseUrl + "Home/Ganjil?inputAngka=" + inputAngka,
+            success: function(data) {
+                for (var value of data) {
+                    $('#result').append('<h6>' + value + '</h6>')
+                }
+            }
+        })
     })
+
     $('#prima').click(() => {
-        alert('test3')
+        var inputAngka = $('#input-angka').val()
+        $.ajax({
+            type: "GET",
+            url: baseUrl + "Home/Prima?inputAngka=" + inputAngka,
+            success: function(data) {
+                for (var value of data) {
+                    $('#result').append('<h6>' + value + '</h6>')
+                }
+            }
+        })
     })
 
 </script>
